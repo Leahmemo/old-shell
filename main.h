@@ -13,6 +13,7 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 
+int strcmp(const char *str1, const char *str2);
 
 #endif
 
