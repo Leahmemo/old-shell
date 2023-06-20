@@ -15,12 +15,14 @@ int main(void)
 	while (1)
 	{
 		printf("$shell> ");
+		fflush(stdout);
+
 		fgets(command, sizeof(command), stdin);
 		command[strcspn(command, "\n")] = '\0';
 		if (strcmp(command, "exit") == 0)
 		{
 			printf("You are leaving the shell ....\n");
-			break;
+			continue;
 		}
 		printf("Before execve\n Ready to fork....\n");
 		child_pid = fork();
@@ -46,3 +48,10 @@ int main(void)
 	printf("Still in shell");
 	return (0);
 }
+
+/**
+ * status -  A function that gets status of a file
+ *
+ * Return: Status
+ *
+ */
