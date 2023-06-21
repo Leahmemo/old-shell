@@ -49,9 +49,3 @@ int main(void)
 	return (0);
 }
 
-/**
- * status -  A function that gets status of a file
- *
- * Return: Status
- *
- */
