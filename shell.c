@@ -11,11 +11,15 @@ int main(void)
 	pid_t child_pid = getpid();
 	int status;
 	char command[MAX_COMMAND_LENGTH];
+	size_t n = 10;
+	char *buf = NULL;
 
 	while (1)
 	{
 		printf("$shell> ");
 		fflush(stdout);
+
+		getline(&buf, &n, stdin);
 
 		fgets(command, sizeof(command), stdin);
 		command[strcspn(command, "\n")] = '\0';
@@ -24,7 +28,8 @@ int main(void)
 			printf("You are leaving the shell ....\n");
 			continue;
 		}
-		printf("Before execve\n Ready to fork....\n");
+		printf("Name is %s. Buffer Size is %ld\n", buf, n);
+		printf("Before execve\n Ready to fork....\n ");
 		child_pid = fork();
 		if (child_pid == -1)
 		{
@@ -34,7 +39,7 @@ int main(void)
 		if (child_pid == 0)
 		{
 			printf("Waiting....\n Executing\n");
-			execve("/bin/ls", argv, NULL);
+			execve("bin/ls", argv, NULL);
 			perror("Error: \n");
 			sleep(3);
 		}
@@ -45,6 +50,7 @@ int main(void)
 		}
 		return (0);
 	}
+	free(buf);
 	printf("Still in shell");
 	return (0);
 }

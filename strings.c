@@ -1,4 +1,4 @@
-#include <main.h>
+#include "main.h"
 
 /**
  * strcmp - compares two strings
@@ -24,4 +24,5 @@ int strcmp(const char *str1, const char *str2)
 		return (0);
 	else if (*str1 == '\0')
 		return  (-1);
+	return (0);
 }
