@@ -50,8 +50,5 @@ int main(void)
 		}
 		return (0);
 	}
-	free(buf);
-	printf("Still in shell");
-	return (0);
 }
 
