@@ -3,6 +3,7 @@
  * main - our version of a simple shell
  * Return: Hopefully a well working shell
  */
+
 int main(void)
 {
 	pid_t child_pid;
