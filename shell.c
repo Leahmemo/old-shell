@@ -1,4 +1,15 @@
 #include "main.h"
+
+/**
+ * displayShell - A function that displays the shell prompt
+ *
+ */
+
+void displayShell(void)
+{
+	printf("$shell> ");
+	fflush(stdout);
+}
 /**
  * main - our version of a simple shell
  * Return: Hopefully a well working shell
@@ -14,8 +25,7 @@ int main(void)
 
 	while (1)
 	{
-		printf("$shell> ");
-		fflush(stdout);
+		displayShell();
 	if (getline(&command, &n, stdin) == -1)
 	{
 		perror("Error: ");
@@ -35,7 +45,6 @@ int main(void)
 	}
 	if (child_pid == 0)
 	{
-		printf("Executing...\n");
 		argv[2] = command;
 		execve("/bin/sh", argv, NULL);
 		perror("Error: ");
@@ -44,7 +53,6 @@ int main(void)
 	else
 	{
 		wait(&status);
-		printf("All better now...\n");
 	}
 	}
 	free(command);
