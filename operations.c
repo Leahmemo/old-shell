@@ -1,14 +1,13 @@
 #define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
+#include "main.h"
 
 /**
- * main - gets a line from a stream
+ * getline - gets a line from a stream
  * @argc: argument count
  * @argv: argument vector
  * Return: the the number of characters read
  */
-int main(int argc, char *argv[])
+int gline(int argc, char *argv[])
 {
 	FILE *stream;
 	char *line = NULL;

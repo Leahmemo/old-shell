@@ -7,28 +7,31 @@
 
 int main(void)
 {
-	char *argv[] = {"bin/ls", "-l", "/usr/", NULL};
 	pid_t child_pid = getpid();
-	int status;
-	char command[MAX_COMMAND_LENGTH];
-	size_t n = 10;
+	/*int status;*/
+	size_t n = 0;
 	char *buf = NULL;
+	char **argv = NULL;
+	char **envp = NULL;
+	char *
 
 	while (1)
 	{
 		printf("$shell> ");
 		fflush(stdout);
 
-		getline(&buf, &n, stdin);
+		if(getline(&buf, &n, stdin) == -1)
+		{
+			perror("Error\n");
+			break;
+		}
 
-		fgets(command, sizeof(command), stdin);
-		command[strcspn(command, "\n")] = '\0';
-		if (strcmp(command, "exit") == 0)
+		buf[strcspn(buf, "\n")] = '\0';
+		if (strcmp(buf, "exit") == 0)
 		{
 			printf("You are leaving the shell ....\n");
-			continue;
+			break;
 		}
-		printf("Name is %s. Buffer Size is %ld\n", buf, n);
 		printf("Before execve\n Ready to fork....\n ");
 		child_pid = fork();
 		if (child_pid == -1)
@@ -39,16 +42,29 @@ int main(void)
 		if (child_pid == 0)
 		{
 			printf("Waiting....\n Executing\n");
-			execve("bin/ls", argv, NULL);
+			argv = (char **)malloc(sizeof(char *) * 2);
+			argv[0] = strdup("bin/ls");
+			argv[1] = NULL;
+
+			envp = (char **)malloc(sizeof(char *));
+			envp[0] = NULL;
+			execve(argv[0], argv, envp);
 			perror("Error: \n");
 			sleep(3);
+			exit(1);
 		}
 		else
 		{
-			wait(&status);
+			wait(NULL);
 			printf("All better now...\n");
 		}
-		return (0);
+		free(argv[0]);
+		free(argv);
+		free(envp);
+		/*free(buf);*/
+		/*buf = NULL;*/
 	}
+	free(buf);
+	return (0);
 }
 

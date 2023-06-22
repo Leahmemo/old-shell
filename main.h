@@ -15,7 +15,8 @@
 
 int strcmp(const char *str1, const char *str2);
 size_t strcspn(const char *str1, const char *str2);
-int main(int argc, char *argv[]);
+int gline(int argc, char *argv[]);
+int main(void);
 
 #endif
 
