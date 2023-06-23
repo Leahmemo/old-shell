@@ -11,6 +11,27 @@ void displayShell(void)
 	fflush(stdout);
 }
 /**
+ *
+ * token - A function that tokenises
+ *
+ *
+ *void token(char * command)
+ *{
+ *	char *tok = strtok(command, " \t\n");
+	int a = 0;
+	char *argv[MAX_COMMAND_LENGTH] = 0;
+
+	while (tok != NULL)
+	{
+		argv[a] = tok;
+		a++;
+		tok = strtok(NULL, " \t\n");
+	}
+	argv[a] = NULL;
+}*/
+
+
+/**
  * main - our version of a simple shell
  * Return: Hopefully a well working shell
  */
@@ -45,6 +66,7 @@ int main(void)
 	}
 	if (child_pid == 0)
 	{
+		/*token(command);*/
 		argv[2] = command;
 		execve("/bin/sh", argv, NULL);
 		perror("Error: ");
