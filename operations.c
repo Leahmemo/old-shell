@@ -2,17 +2,17 @@
 #include "main.h"
 
 /**
- * getline - gets a line from a stream
+ * gline - gets a line from a stream
  * @argc: argument count
  * @argv: argument vector
  * Return: the the number of characters read
  */
 int gline(int argc, char *argv[])
 {
-	FILE *stream;
-	char *line = NULL;
-	size_t len = 0;
-	ssize_t nread;
+	FILE *filePtr;
+	char *lineBuffer = NULL;
+	size_t bufferSize = 0;
+	ssize_t bytesRead;
 
 	if (argc != 2)
 	{
@@ -20,20 +20,20 @@ int gline(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 
-	stream = fopen(argv[1], "r");
-	if (stream == NULL)
+	filePtr = fopen(argv[1], "r");
+	if (filePtr == NULL)
 	{
 		perror("fopen");
 		exit(EXIT_FAILURE);
 	}
 
-	while ((nread = getline(&line, &len, stream)) != -1)
+	while ((bytesRead = getline(&lineBuffer, &bufferSize, filePtr)) != -1)
 	{
-		printf("Retrieved line of length %lu:\n", nread);
-		fwrite(line, nread, 1, stdout);
+		printf("Retrieved line of length %lu:\n", bytesRead);
+		fwrite(lineBuffer, bytesRead, 1, stdout);
 	}
 
-	free(line);
-	fclose(stream);
+	free(lineBuffer);
+	fclose(filePtr);
 	exit(EXIT_SUCCESS);
 }
