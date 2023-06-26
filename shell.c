@@ -55,7 +55,7 @@ int main(void)
 	command[strcspn(command, "\n")] = '\0';
 	if (strcmp(command, "exit") == 0)
 	{
-		printf("You are leaving the shell ....\n");
+		printf("You are leaving the shell...Sad to see you go...\n");
 		break;
 	}
 	child_pid = fork();

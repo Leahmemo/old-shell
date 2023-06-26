@@ -13,6 +13,9 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 
+
+/*Prototypes*/
+
 int strcmp(const char *str1, const char *str2);
 size_t strcspn(const char *str1, const char *str2);
 int gline(int argc, char *argv[]);
