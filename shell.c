@@ -7,7 +7,7 @@
 
 void displayShell(void)
 {
-	printf("$shell> ");
+	printf("shell> ");
 	fflush(stdout);
 }
 
