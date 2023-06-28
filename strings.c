@@ -27,7 +27,7 @@ int strcmp(const char *str1, const char *str2)
 	return (0);
 }
 /**
- * strcspn - checks if the current character of a string is present in another string
+ * strcspn - checks if the current character of a string is present
  * @str1: first string
  * @str2: second string
  *
@@ -46,16 +46,16 @@ size_t strcspn(const char *str1, const char *str2)
 }
 
 /**
- * strtok - A function that tokenises the user's input
+ * our_strtok - A function that tokenises the user's input
  *
- * @str - The string to tokenise
+ * @str: The string to tokenise
  *
- * @delim - The delimitor separator
+ * @delim: The delimitor separator
  *
  * Return: Tokens
  *
  */
-char * our_strtok(char *str, const char *delim)
+char *our_strtok(char *str, const char *delim)
 {
 	static char *token;
 	static char *next;
@@ -66,21 +66,21 @@ char * our_strtok(char *str, const char *delim)
 	}
 	else if (token == NULL)
 	{
-		return NULL;
+		return (NULL);
 	}
 	else if (*token == '\0')
 	{
-		return NULL;
+		return (NULL);
 	}
 	token = token + strspn(token, delim);
 
 	if (*token == '\0')
 	{
 		next = NULL;
-		return NULL;
+		return (NULL);
 	}
 
-	next = token +strcspn(token, delim);
+	next = token + strcspn(token, delim);
 
 	if (next != NULL)
 	{
@@ -92,6 +92,6 @@ char * our_strtok(char *str, const char *delim)
 		next = NULL;
 	}
 
-	return token;
+	return (token);
 }
 
