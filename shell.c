@@ -22,23 +22,50 @@ int main(void)
 	pid_t child_pid;
 	int status;
 	char *command = NULL;
+	const char *delim = " \n";
 	size_t n = 0;
-	char *argv[] = {"/bin/sh", "-c", NULL, NULL};
+	/*char *argv[] = {"/bin/sh", "-c", NULL, NULL};*/
+	char **argv = NULL;
+	int a, b;
+	char *token;
+	int total_tokens = 0;
 
 	while (1)
 	{
 		displayShell();
 	if (getline(&command, &n, stdin) == -1)
 	{
-		perror("Error: ");
+		perror("Exiting shell ");
 		break;
 	}
-	command[strcspn(command, "\n")] = '\0';
+	command[strcspn(command, "\n")] = '\0'; 
+
 	if (strcmp(command, "exit") == 0)
 	{
 		printf("You are leaving the shell...Sad to see you go...\n");
 		break;
 	}
+
+	token = strtok(command, delim);
+
+	while (token)
+	{
+		total_tokens++;
+		token = strtok (NULL, delim);
+	}
+
+	argv = malloc((total_tokens + 2) * sizeof(char*));
+
+	a = 0;
+	token = strtok(command, delim);
+
+	for(; a < total_tokens; a++)
+	{
+		argv[a] = strdup(token);
+		token = strtok(NULL, delim);
+	}
+	argv[total_tokens] = NULL;
+	
 	child_pid = fork();
 	if (child_pid == -1)
 	{
@@ -47,16 +74,21 @@ int main(void)
 	}
 	if (child_pid == 0)
 	{
-		argv[2] = command;
-		execve("/bin/sh", argv, NULL);
+		execvp(argv[0], argv);
 		perror("Error: ");
 		exit(1);
 	}
 	else
 	{
-		wait(&status);
+		waitpid(child_pid, &status, 0);
+	}
+	b = 0;
+	for(; b < a; b++)
+	{
+		free(argv[b]);
 	}
 	}
+	free(argv);
 	free(command);
 	return (0);
 }
