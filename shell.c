@@ -29,7 +29,7 @@ int main(void)
 	int a, b;
 	char *token;
 	char *tokenised_command;
-	int total_tokens = 0;
+	int total_tokens = 0;i
 
 	while (1)
 	{
