@@ -78,7 +78,8 @@ int main(void)
         {
                 /*setenv("PATH", custom_path, 1);*/
                /* argv[0] = "sh";*/
-                execlp("/bin/sh", "sh", "-c",command, NULL);
+               /* execlp("/bin/sh", "sh", "-c",command, NULL);*/
+		execvp(argv[0], argv);
                 perror("Error: ");
                 exit(1);
         }
@@ -91,8 +92,8 @@ int main(void)
         {
                 free(argv[b]);
         }
-        free(argv);
-        free(command);
+       /* free(argv);*/
         }
+	free(command);
         return (0);
 }
