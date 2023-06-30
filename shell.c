@@ -76,7 +76,7 @@ int main(void)
         }
         if (child_pid == 0)
         {
-                /*setenv("PATH", custom_path, 1);*/
+                setenv("PATH", custom_path, 1);
                /* argv[0] = "sh";*/
                /* execlp("/bin/sh", "sh", "-c",command, NULL);*/
 		execvp(argv[0], argv);
