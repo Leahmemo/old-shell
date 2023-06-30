@@ -7,7 +7,7 @@
 
 void displayShell(void)
 {
-	printf("shell> ");
+	printf("Shell $ ");
 	fflush(stdout);
 }
 
@@ -24,10 +24,11 @@ int main(void)
 	char *command = NULL;
 	const char *delim = " \n";
 	size_t n = 0;
-	/*char *argv[] = {"/bin/sh", "-c", NULL, NULL};*/
+	/*char *cmd[] = {"bin/sh", "-c", NULL, NULL};*/
 	char **argv = NULL;
 	int a, b;
 	char *token;
+	char *tokenised_command;
 	int total_tokens = 0;
 
 	while (1)
@@ -46,7 +47,9 @@ int main(void)
 		break;
 	}
 
-	token = strtok(command, delim);
+	tokenised_command = strdup(command);
+
+	token = strtok(tokenised_command, delim);
 
 	while (token)
 	{
@@ -58,14 +61,15 @@ int main(void)
 
 	a = 0;
 	token = strtok(command, delim);
-
-	for(; a < total_tokens; a++)
+	while (token)
 	{
 		argv[a] = strdup(token);
 		token = strtok(NULL, delim);
+		a++;
 	}
-	argv[total_tokens] = NULL;
-	
+	argv[a] = NULL;
+
+	free(tokenised_command);
 	child_pid = fork();
 	if (child_pid == -1)
 	{
@@ -74,7 +78,8 @@ int main(void)
 	}
 	if (child_pid == 0)
 	{
-		execvp(argv[0], argv);
+		argv[0] = "bin/sh";
+		execve(argv[0], argv, NULL);
 		perror("Error: ");
 		exit(1);
 	}
@@ -82,8 +87,8 @@ int main(void)
 	{
 		waitpid(child_pid, &status, 0);
 	}
-	b = 0;
-	for(; b < a; b++)
+	
+	for(b = 0; b < a; b++)
 	{
 		free(argv[b]);
 	}
