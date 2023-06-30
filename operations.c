@@ -37,3 +37,23 @@ int gline(int argc, char *argv[])
 	fclose(filePtr);
 	exit(EXIT_SUCCESS);
 }
+
+/*
+ *
+ *
+ */
+void* my_malloc(size_t size)
+{
+	MemoryBlock* block = sbrk(sizeof(MemoryBlock) + size);
+
+	if (block == (void*)-1)
+	{
+	    return (NULL);
+	}
+
+	block->size = size;
+	block->next = allocatedBlocks;
+	allocatedBlocks = block;
+
+	return (void*)(block + 1);
+}

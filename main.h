@@ -13,6 +13,12 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 
+typedef struct MemoryBlock
+{
+	size_t size;
+	struct MemoryBlock* next;
+} MemoryBlock;
+
 
 /*Prototypes*/
 
@@ -23,6 +29,7 @@ int strcmp(const char *str1, const char *str2);
 size_t strcspn(const char *str1, const char *str2);
 int gline(int argc, char *argv[]);
 int main(void);
+void* my_malloc(size_t size);
 
 #endif
 
