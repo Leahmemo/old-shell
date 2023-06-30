@@ -17,6 +17,8 @@
 /*Prototypes*/
 
 extern char **environ;
+char *our_strtok(char *str, const char *delim);
+char* our_strdup(const char* str);
 int strcmp(const char *str1, const char *str2);
 size_t strcspn(const char *str1, const char *str2);
 int gline(int argc, char *argv[]);

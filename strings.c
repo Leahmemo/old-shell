@@ -95,3 +95,22 @@ char *our_strtok(char *str, const char *delim)
 	return (token);
 }
 
+/*
+ * our_strdup - creates a duplicate of a string
+ * @str: string to be duplicated
+ * @new_str: string that has been duplicated
+ *
+ * Return: new string that has been made
+ */
+char* our_strdup(const char* str)
+{
+	size_t len = strlen(str) + 1;
+	char* new_str = malloc(len);
+
+	if (new_str != NULL)
+	{
+		memcpy(new_str, str, len);
+	}
+
+	return (new_str);
+}
